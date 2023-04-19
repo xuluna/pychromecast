@@ -383,6 +383,7 @@ class BaseMediaPlayer(BaseController):
         enqueue=False,
         media_info=None,
         callback_function=None,
+        playback_rate=1,
     ):
         """
         Plays media on the Chromecast. Start default media receiver if not
@@ -430,6 +431,7 @@ class BaseMediaPlayer(BaseController):
             enqueue,
             media_info,
             callback_function=callback_function,
+            playback_rate=playback_rate,
         )
 
     def _send_start_play_media(  # pylint: disable=too-many-locals
@@ -449,6 +451,7 @@ class BaseMediaPlayer(BaseController):
         enqueue=False,
         media_info=None,
         callback_function=None,
+        playback_rate=None,
     ):
         media_info = media_info or {}
         media = {
@@ -510,6 +513,7 @@ class BaseMediaPlayer(BaseController):
             }
         else:
             msg = {
+                "playbackRate": playback_rate,
                 "media": media,
                 MESSAGE_TYPE: TYPE_LOAD,
             }
