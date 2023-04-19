@@ -24,6 +24,7 @@ args = parser.parse_args()
 
 cast = chromecasts[0]
 cast.wait()
+time.sleep(1)
 mc = cast.media_controller
 
 if args.play:
@@ -31,10 +32,11 @@ if args.play:
 elif args.pause:
     mc.pause()
 elif args.stop:
-    mc.stop()
     os.system("rm ~/photos/*.mp4")
+    mc.stop()
 elif args.cast is not None:
-    os.system(f"cp ~/videos/${args.cast}.mp4 ~/photos/${args.cast}.mp4")
+    os.system("rm ~/photos/*.mp4")
+    os.system("cp ~/videos/"+args.cast+".mp4 ~/photos/"+args.cast+".mp4")
     mc.play_media('http://192.168.10.105/'+args.cast+'.mp4', 'video/mp4', playback_rate=args.speed)
     mc.block_until_active()
 
